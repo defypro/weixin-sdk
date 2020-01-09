@@ -1,0 +1,24 @@
+{
+  "name": "weixin-sdk",
+  "version": "0.0.1",
+  "description": "weixin sdk",
+  "main": "index.js",
+  "author": "defy",
+  "license": "MIT",
+  "scripts": {
+    "dev": "nodemon -e ts,js --exec ts-node test.js"
+  },
+  "devDependencies": {
+    "@types/node": "^13.1.2",
+    "@types/xml2js": "^0.4.5",
+    "koa": "^2.11.0",
+    "koa-bodyparser": "^4.2.1",
+    "koa-router": "^7.4.0",
+    "mocha": "^6.2.2",
+    "typescript": "^3.7.4"
+  },
+  "dependencies": {
+    "axios": "^0.19.1",
+    "xml2js": "^0.4.23"
+  }
+}
