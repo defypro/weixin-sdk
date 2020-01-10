@@ -60,7 +60,31 @@ router.all('/server', async (ctx, next) => {
         //     Content: message.Content
         // });
     });
-
+});
+router.all('/oauth', async (ctx, next) => {
+    const app = officialAccount({
+        appId: 'wx320bb9513d7fe07c',
+        appsecret: 'e3157e46049bd95add8d887093585056',
+        token: 'rams1234',
+        cachePath: resolvePath('./cache')
+    });
+    if (ctx.query.code) {
+        // app.oauth.accessToken(ctx.query.code).then((data) => {
+        //     console.log(data);
+        // });
+        const data = await app.oauth.userInfo(ctx.query.code);
+        ctx.body = JSON.stringify(data);
+    } else {
+        const redirectURL = app.oauth.setRedirectUri('http://xmlde.imwork.net/oauth').url();
+        ctx.response.redirect(redirectURL);
+    }
+    // app.oauth.accessToken('').then((data) => {
+    //     data.errcode
+    // });
+    // app.oauth.userInfo('').then((data) => {
+    //     data.openid
+    // });
+    //
 });
 
 app.use(router.routes());

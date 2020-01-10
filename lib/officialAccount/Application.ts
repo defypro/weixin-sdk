@@ -6,6 +6,7 @@ import {parseString} from "../utils/xmllib"
 import Message from "./message";
 import {IReceivedData} from "./message";
 import AccessToken from "./AccessToken";
+import OAuth from "./OAuth";
 
 const checkSignature = function (query: any, token: string) {
     const arr = [token, query.timestamp, query.nonce].sort();
@@ -48,6 +49,13 @@ class Application {
     private readonly config: IOfficialAccountConfig;
     private readonly appId: string;
     private readonly appsecret: string;
+    private _oauth: OAuth | undefined;
+    get oauth(): OAuth {
+        if (!this._oauth) {
+            this._oauth = new OAuth(this.appId, this.appsecret);
+        }
+        return this._oauth;
+    }
 
     constructor(config: IOfficialAccountConfig) {
         this.config = config;

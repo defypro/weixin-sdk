@@ -12,4 +12,6 @@ export {MsgType} from './officialAccount/message'
 
 export {default as MessageCustom} from './officialAccount/message/Custom'
 
+export {default as OAuth} from './officialAccount/OAuth'
+
 // export const MsgType = _MsgType;
