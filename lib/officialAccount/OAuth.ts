@@ -64,7 +64,7 @@ class OAuth {
         } else {
             return http.post(url).then(({data}) => {
                 if (data.access_token) {
-                    this._accessData = data;
+                    this._accessData = data.access_token
                 }
                 return data;
             });

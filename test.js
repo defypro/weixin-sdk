@@ -1,10 +1,11 @@
 //nodemon -e ts,js --exec ts-node test.js
-// import xml2js from "xml2js";
 
 const path = require('path');
 const resolvePath = dir => path.join(__dirname, dir);
 const Koa = require('koa');
 const router = require('koa-router')();
+const IORedis = require("ioredis");
+const redis = new IORedis();
 
 const app = new Koa();
 
@@ -16,12 +17,6 @@ router.all('/server', async (ctx, next) => {
         token: 'rams1234',
         cachePath: resolvePath('./cache')
     });
-    // ctx.body = await app.serve(ctx.req);
-    // app.accessToken().then(res => {
-    //     console.log(res)
-    // }).catch(error => {
-    //     console.log(error)
-    // })
     const accessToken = await app.accessToken();
     const messageCustom = new MessageCustom(accessToken);
     ctx.body = await app.serve(ctx.req, async function (message) {
@@ -61,6 +56,7 @@ router.all('/server', async (ctx, next) => {
         // });
     });
 });
+
 router.all('/oauth', async (ctx, next) => {
     const app = officialAccount({
         appId: 'wx320bb9513d7fe07c',
@@ -69,22 +65,10 @@ router.all('/oauth', async (ctx, next) => {
         cachePath: resolvePath('./cache')
     });
     if (ctx.query.code) {
-        // app.oauth.accessToken(ctx.query.code).then((data) => {
-        //     console.log(data);
-        // });
-        const data = await app.oauth.userInfo(ctx.query.code);
-        ctx.body = JSON.stringify(data);
+        ctx.body = await app.oauth.userInfo(ctx.query.code);
     } else {
-        const redirectURL = app.oauth.setRedirectUri('http://xmlde.imwork.net/oauth').url();
-        ctx.response.redirect(redirectURL);
+        ctx.response.redirect(app.oauth.setRedirectUri('http://xmlde.imwork.net/oauth').url());
     }
-    // app.oauth.accessToken('').then((data) => {
-    //     data.errcode
-    // });
-    // app.oauth.userInfo('').then((data) => {
-    //     data.openid
-    // });
-    //
 });
 
 app.use(router.routes());

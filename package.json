@@ -9,8 +9,11 @@
     "dev": "nodemon -e ts,js --exec ts-node test.js"
   },
   "devDependencies": {
+    "@types/bluebird": "^3.5.29",
     "@types/node": "^13.1.2",
     "@types/xml2js": "^0.4.5",
+    "@types/ioredis": "^4.14.3",
+    "bluebird": "^3.7.2",
     "koa": "^2.11.0",
     "koa-bodyparser": "^4.2.1",
     "koa-router": "^7.4.0",
@@ -19,6 +22,7 @@
   },
   "dependencies": {
     "axios": "^0.19.1",
+    "ioredis": "^4.14.1",
     "xml2js": "^0.4.23"
   }
 }

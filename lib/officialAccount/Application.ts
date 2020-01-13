@@ -47,8 +47,8 @@ interface ICallback {
 
 class Application {
     private readonly config: IOfficialAccountConfig;
-    private readonly appId: string;
-    private readonly appsecret: string;
+    readonly appId: string;
+    readonly appsecret: string;
     private _oauth: OAuth | undefined;
     get oauth(): OAuth {
         if (!this._oauth) {
